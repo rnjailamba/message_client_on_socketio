@@ -1,52 +1,25 @@
-var EventEmitter = require("events").EventEmitter;
-var http = require("http");
-var util = require("util");
+module.exports = {
+    escape: function(html) {
+        return String(html)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    },
 
-/**
- * An EventEmitter to get a Treehouse students profile.
- * @param username
- * @constructor
- */
-function MessageServiceClient(data) {
-
-    EventEmitter.call(this);
-
-    profileEmitter = this;
-
-    profileEmitter.emit(data + "xyz");
-
-
-    // //Connect to the API URL (http://teamtreehouse.com/username.json)
-    // var request = http.get("http://teamtreehouse.com/" + username + ".json", function(response) {
-    //     var body = "";
-    //
-    //     if (response.statusCode !== 200) {
-    //         request.abort();
-    //         //Status Code Error
-    //     }
-    //
-    //     //Read the data
-    //     response.on('data', function (chunk) {
-    //         body += chunk;
-    //         profileEmitter.emit("data", chunk);
-    //     });
-    //
-    //     response.on('end', function () {
-    //         if(response.statusCode === 200) {
-    //             try {
-    //                 //Parse the data
-    //                 var profile = JSON.parse(body);
-    //                 profileEmitter.emit("end", profile);
-    //             } catch (error) {
-    //                 profileEmitter.emit("error", error);
-    //             }
-    //         }
-    //     }).on("error", function(error){
-    //         profileEmitter.emit("error", error);
-    //     });
-    // });
-}
-
-util.inherits( MessageServiceClient, EventEmitter );
-
-module.exports = MessageServiceClient;
+    /**
+     * Unescape special characters in the given string of html.
+     *
+     * @param  {String} html
+     * @return {String}
+     */
+    unescape: function(html) {
+        return String(html)
+            .replace(/&amp;/g, '&')
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, ''')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>');
+    }
+};

@@ -1,6 +1,6 @@
 {
   "name": "message_client_on_socketio",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A wrapper built over socket.io which allows access to simple functions to get a listener running, addChannel, deleteChannel, sendMessage etc.",
   "main": "client.js",
   "scripts": {
