@@ -8,12 +8,14 @@ var util = require("util");
  * @constructor
  */
 function MessageServiceClient(data) {
-    return data + "xyz";
 
-    // EventEmitter.call(this);
-    //
-    // profileEmitter = this;
-    //
+    EventEmitter.call(this);
+
+    profileEmitter = this;
+
+    profileEmitter.emit(data + "xyz");
+
+
     // //Connect to the API URL (http://teamtreehouse.com/username.json)
     // var request = http.get("http://teamtreehouse.com/" + username + ".json", function(response) {
     //     var body = "";
@@ -21,7 +23,6 @@ function MessageServiceClient(data) {
     //     if (response.statusCode !== 200) {
     //         request.abort();
     //         //Status Code Error
-    //         profileEmitter.emit("error", new Error("There was an error getting the profile for " + username + ". (" + http.STATUS_CODES[response.statusCode] + ")"));
     //     }
     //
     //     //Read the data
@@ -45,5 +46,7 @@ function MessageServiceClient(data) {
     //     });
     // });
 }
+
+util.inherits( MessageServiceClient, EventEmitter );
 
 module.exports = MessageServiceClient;
