@@ -1,6 +1,6 @@
 {
   "name": "message_client_on_socketio",
-  "version": "1.0.8",
+  "version": "1.0.12",
   "description": "A wrapper built over socket.io which allows access to simple functions to get a listener running, addChannel, deleteChannel, sendMessage etc.",
   "main": "client.js",
   "scripts": {
@@ -11,5 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/rnjailamba/message_client_on_socketio.git"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^2.0.3"
+  }
 }
