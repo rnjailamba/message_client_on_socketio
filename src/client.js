@@ -1,14 +1,14 @@
 var EventEmitter = require('events').EventEmitter;
 
 /**
- * Roll simply keep tracks of steps' positions inside a viewport.
+ * MessageServiceClient simply keep tracks of steps' positions inside a viewport.
  * Apart from the static helper functions and the `scroll` function, a roll instance doesn't depend on DOM manipulation.
- * That means you can use a Roll instance in contexts other than DOM.
+ * That means you can use a MessageServiceClient instance in contexts other than DOM.
  */
-export default class Roll extends EventEmitter {
+export default class MessageServiceClient extends EventEmitter {
 
   /**
-   * Create a new Roll.
+   * Create a new MessageServiceClient.
    * @param viewSize viewport size (single dimension)
    */
   constructor( viewSize ) {
@@ -17,7 +17,7 @@ export default class Roll extends EventEmitter {
     this.viewportSize = viewSize;
     this.paneSize = 0;
 
-    // store the steps object {y1, y2, size, pad}, See Roll.chunk
+    // store the steps object {y1, y2, size, pad}, See MessageServiceClient.chunk
     this.steps = [];
 
     this.pos = 0; // current position
@@ -29,9 +29,9 @@ export default class Roll extends EventEmitter {
 
 
   /**
-   * Add a step object. You can also use Roll.chunk() static helper function to create a step object easily.
+   * Add a step object. You can also use MessageServiceClient.chunk() static helper function to create a step object easily.
    * @param s an object with {p1, p2, size, pad} properties, or an array of steps object
-   * @returns {Roll}
+   * @returns {MessageServiceClient}
    */
   addStep(s) {
 
@@ -124,7 +124,7 @@ export default class Roll extends EventEmitter {
   /**
    * Move the roll. This will emit two events `roll(step, currProgress, currPosition, totalProgress)` and `step(curr, last)`
    * @param pos new position
-   * @returns {Roll}
+   * @returns {MessageServiceClient}
    */
   move( pos ) {
     var last = this.pos;
@@ -204,8 +204,8 @@ export default class Roll extends EventEmitter {
 
 
   /**
-   * Static helper to get a handle function for Roll's "step" event. The handler function will add class names to each step element based on current step value.
-   * @param roll a Roll instance
+   * Static helper to get a handle function for MessageServiceClient's "step" event. The handler function will add class names to each step element based on current step value.
+   * @param roll a MessageServiceClient instance
    * @param views a list of DOM elements which are the steps
    * @param prev optional class name for step is < currStep. Defaults to "prev"
    * @param next optional class name for step is > currStep. Defaults to "next"
@@ -215,7 +215,7 @@ export default class Roll extends EventEmitter {
   static stepHandler( roll, views, prev="prev", next="next", match="curr", trackTopPos=false) {
     return function ( curr, last, viewportHeight ) {
       for (var i = 0; i < roll.steps.length; i++) {
-        var cls = Roll.stepName( i, curr, prev, next, match );
+        var cls = MessageServiceClient.stepName( i, curr, prev, next, match );
         views[i].className = "step " + cls;
 
         // if steps have different sizes, recalc top position and set style
@@ -229,7 +229,7 @@ export default class Roll extends EventEmitter {
 
 
   /**
-   * Static method to create a Roll instance with DOM elements
+   * Static method to create a MessageServiceClient instance with DOM elements
    * @param viewPortID id of viewport element, which is the parent of the viewPane. eg, "#viewport"
    * @param viewPaneID id of view pane element, eg, "#pane"
    * @param viewBox id of view box element, which is the parent the viewClass elements. eg, "#steps"
@@ -248,12 +248,12 @@ export default class Roll extends EventEmitter {
     if (!viewClass) throw `Cannot find ${viewClass} element class name`;
 
     // create roll instance based on viewport element height
-    var roll = new Roll( viewport.getBoundingClientRect().height );
+    var roll = new MessageServiceClient( viewport.getBoundingClientRect().height );
 
     // add each viewClass element as a step
     for (var i = 0; i < views.length; i++) {
       var rect = views[i].getBoundingClientRect();
-      roll.addStep( Roll.chunk( rect.height, pad ) );
+      roll.addStep( MessageServiceClient.chunk( rect.height, pad ) );
     }
 
     // update viewpane height based on steps

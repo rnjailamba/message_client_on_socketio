@@ -1,4 +1,4 @@
-var Roll = require("./client.js");
+var MessageServiceClient = require("./client.js");
 
-if (window) window.Roll = Roll;
+if (window) window.MessageServiceClient = MessageServiceClient;
 
