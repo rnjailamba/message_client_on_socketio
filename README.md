@@ -5,7 +5,7 @@
 ### Usage
 
 ```
-<script src="/message_client_on_socketio/client.js"></script>
+<script src="/message_client_on_socketio/dist/client.js"></script>
 var messageServiceClient = new MessageServiceClient({roomName: '/chatroom', publishKey: 44, subscribeKey: 88});
 var socket = messageServiceClient.createSocket();
 
