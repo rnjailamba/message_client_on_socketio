@@ -1,5 +1,10 @@
 !Work in progress!
 
+
+## Message Client (sdk for front end built on socket.io)
+### Usage
+
+```
 <script src="/message_client_on_socketio/client.js"></script>
 var messageServiceClient = new MessageServiceClient({roomName: '/chatroom', publishKey: 44, subscribeKey: 88});
 var socket = messageServiceClient.createSocket();
@@ -9,3 +14,4 @@ messageServiceClient.addTheListener({
       console.log("New Message!!", message);
   }
 })
+```
