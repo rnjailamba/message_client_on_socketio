@@ -17,12 +17,36 @@ export default class MessageServiceClient extends EventEmitter {
     this.roomName = data.roomName;
     this.publishKey = data.publishKey;
     this.subscribeKey = data.subscribeKey;
+    this.socket = null;
+    this.callback = null;
   }
 
-  requestSocket() {
+  createSocket() {
       var socket = io(this.roomName, { transports: ['websocket'] });
+      this.socket = socket;
       return socket;
   }
+
+  addTheListener(data) {
+    for (var k in data) {
+        if (data.hasOwnProperty(k)) {
+            this.callback = data[k];
+
+            if(k == 'message'){
+              console.log('add message listener');
+                (this.socket).on('addMessage', function(message) {
+                    console.log('calling callback')
+                    console.log(this.callback);
+                    // this.callback[message].bind(this.callback)
+                    data[k].bind(message)(message);
+                    data[k](message);
+                });
+            }
+        }
+    }
+  }
+
+    // Append a new message
 
   static requestSocket1(path, callback) {
       callback = callback || function () {}

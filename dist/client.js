@@ -6770,14 +6770,40 @@ var MessageServiceClient = (function (_EventEmitter) {
         this.roomName = data.roomName;
         this.publishKey = data.publishKey;
         this.subscribeKey = data.subscribeKey;
+        this.socket = null;
+        this.callback = null;
     }
 
     _createClass(MessageServiceClient, [{
-        key: 'requestSocket',
-        value: function requestSocket() {
+        key: 'createSocket',
+        value: function createSocket() {
             var socket = io(this.roomName, { transports: ['websocket'] });
+            this.socket = socket;
             return socket;
         }
+    }, {
+        key: 'addTheListener',
+        value: function addTheListener(data) {
+            for (var k in data) {
+                if (data.hasOwnProperty(k)) {
+                    this.callback = data[k];
+
+                    if (k == 'message') {
+                        console.log('add message listener');
+                        this.socket.on('addMessage', function (message) {
+                            console.log('calling callback');
+                            console.log(this.callback);
+                            // this.callback[message].bind(this.callback)
+                            data[k].bind(message)(message);
+                            data[k](message);
+                        });
+                    }
+                }
+            }
+        }
+
+        // Append a new message
+
     }], [{
         key: 'requestSocket1',
         value: function requestSocket1(path, callback) {

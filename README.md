@@ -1,5 +1,11 @@
 !Work in progress!
 
-var MessageServiceClient = require("message_client_on_socketio");
+<script src="/message_client_on_socketio/client.js"></script>
+var messageServiceClient = new MessageServiceClient({roomName: '/chatroom', publishKey: 44, subscribeKey: 88});
+var socket = messageServiceClient.createSocket();
 
-How to create npm plugin https://quickleft.com/blog/creating-and-publishing-a-node-js-module/
+messageServiceClient.addTheListener({
+  message: function(message) {
+      console.log("New Message!!", message);
+  }
+})
