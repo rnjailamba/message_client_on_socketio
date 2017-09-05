@@ -1,5 +1,3 @@
-!Work in progress!
-
 
 ## Message Client (sdk for front end built on socket.io)
 ### Usage
